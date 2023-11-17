@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Project 03 SPA</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mt-5">Programming Quiz Application</h1>
+      <h2 class="text-center mt-3">Project 03 - Nicholas Masters</h2>
+      <div class="text-center mt-5">
+        <input
+          type="text"
+          id="nameInput"
+          class="form-control"
+          placeholder="Enter your name"
+        />
+        <button id="submitName" class="btn mt-5">Choose a Quiz</button>
+      </div>
+
+      <div id="greeting" class="text-center mt-4"></div>
+
+      <!-- Buttons to choose quiz -->
+      <div class="text-center mt-4">
+        <div class="form-check quiz-buttons" style="display: none">
+          <button id="jsQuizButton" class="btn" value="JavaScript">
+            TypeScript
+          </button>
+          <button id="leetcodeQuizButton" class="btn" value="Leetcode">
+            LeetCode
+          </button>
+        </div>
+      </div>
+
+      <div id="main_view">
+        <!-- Will show the view -->
+      </div>
+      <button
+        id="submit"
+        class="text-center btn submit-button mt-5"
+        style="display: none"
+      >
+        Submit
+      </button>
+    </div>
+
+    <div
+      id="scoreboard"
+      class="text-center mt-3"
+      style="
+        display: none;
+        border: 2px solid #4285f4;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+        margin-top: 20px; /* Adjust the value as needed */
+      "
+    >
+      <h3 style="color: #4285f4">Scoreboard</h3>
+      <p
+        id="correctAnswers"
+        style="font-size: 18px; color: #0d6efd; font-weight: bold"
+      >
+        0 / 0
+      </p>
+    </div>
+  </body>
+  <!-- Template for Quiz -->
+  <script id="quiz_view" type="text/x-handlebars-template">
+    <div
+      style="background-color: #F5E8C7; color: #435585; padding: 20px; border-radius: 20px;"
+    >
+      <h2>{{question}}</h2>
+      {{#if isTextQuestion}}
+        <input class="mt-3" type="text" id="textAnswer" />
+      {{else}}
+        <ul class="quiz-options mt-3" style="list-style: none;">
+          {{#each options}}
+            <li>
+              <label>
+                <input type="radio" name="question{{id}}" value="{{this}}" />
+                {{this}}
+              </label>
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </div>
+  </script>
+
+  <!-- Template for Correct -->
+  <script id="correct_view" type="text/x-handlebars-template">
+    <div class="container text-center mt-5 correct-answer">
+      <div class="alert alert-success" role="alert">
+        <h1 class="display-4">Brilliant!</h1>
+        <p class="lead">You got it right. Keep up the good work!</p>
+      </div>
+    </div>
+  </script>
+
+  <!-- Template for Incorrect -->
+  <script id="wrong_view" type="text/x-handlebars-template">
+    <div class="container text-center mt-5 wrong-answer">
+      <div class="alert alert-danger" role="alert">
+        <h1 class="display-4">Oops!</h1>
+        <p class="lead">Sorry, that's not correct. Keep trying!</p>
+        <p class="explanation">{{explanation}}</p>
+        <button id="nextQuestion" class="btn">Next Question</button>
+      </div>
+    </div>
+  </script>
+
+  <!-- Template for End of Quiz -->
+  <script id="end_view" type="text/x-handlebars-template">
+    <div
+      style="background-color: #F5E8C7; color: #435585; padding: 20px; border-radius: 20px;"
+    >
+      <h1>Quiz Completed!</h1>
+      <p>{{endMessage}}</p>
+      <div class="text-center mt-3">
+        <button id="retakeQuiz" class="btn btn-primary">Retake Quiz</button>
+        <button id="returnToMain" class="btn btn-secondary ml-3">Return to Main
+          Page</button>
+      </div>
+    </div>
+  </script>
+</html>
