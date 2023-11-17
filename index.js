@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
   /* Locally updates the correct answer for checkAnswer()  */
   let corrAnswer;
 
+  /* Locally updates the explanation for renderWrongView() */
+  let explanation;
+
   /* Locally updates scoreboard */
   let correctAnswersCount = 0;
   let totalQuestionsAttempted = 0;
@@ -66,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (currQuestion < data.questions.length) {
           corrAnswer = data.questions[currQuestion].correctAnswer;
+          explanation = data.questions[currQuestion].explanation;
           renderQuizView(data.questions[currQuestion]);
         } else {
           renderEndOfQuiz();
@@ -101,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
   }
 
-  function renderWrongView(explanation) {
+  function renderWrongView() {
     submitButton.style.display = "none";
     totalQuestionsAttempted++;
     updateScoreboard();
